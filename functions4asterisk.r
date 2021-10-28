@@ -1,7 +1,11 @@
 
 yearest <- function( diagnosis, yeardesign, stringsub = "one == 1"){
 
-	stiringsub2 <- paste0("age < 65 & ", srtingsub)
+	diagnosis <- sapply( diagnosis, function(j) j)
+
+	yeardesign <- sapply( yeardesign, function(j) j)
+
+	stiringsub <- paste0("age < 65 & ", srtingsub)
 	
 	lapply(diagnosis, function(i){
 	
@@ -9,7 +13,7 @@ yearest <- function( diagnosis, yeardesign, stringsub = "one == 1"){
 			lapply(yeardesign, function(j){
 				as.data.frame(eval(bquote(
 					svymean(~.(as.name(i)),
-					subset(get(j), eval(parse(text=stringsub2))),
+					subset(get(j), eval(parse(text=stringsub))),
 					na.rm=T)
 				)))
 			})
@@ -19,7 +23,7 @@ yearest <- function( diagnosis, yeardesign, stringsub = "one == 1"){
 			lapply(yeardesign, function(j){
 				as.data.frame(eval(bquote(
 					unwtd.count( ~.(as.name(i)),
-					subset( get(j), eval(parse( text=stringsub2))),
+					subset( get(j), eval(parse( text=stringsub))),
 					na.rm=T)
 				)))
 			})
